@@ -35,6 +35,8 @@ app.get("/", (req, res) => {
 });
 
 require("./app/routes/user.routes")(app);
+require("./app/routes/niño.routes")(app);
+require("./app/routes/control.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

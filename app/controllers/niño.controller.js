@@ -1,7 +1,7 @@
 const db = require("../models");
-const User = db.users;
+const Niño = db.niños;
 
-// Create and Save a new User
+// Create and Save a new Niño
 exports.create = (req, res) => {
     // Validate request
     if (!req.body.nombre) {
@@ -9,61 +9,61 @@ exports.create = (req, res) => {
       return;
     }
   
-    // Create a User
-    const user = new User({
-      nombre: req.body.nombre,
-      dni: req.body.dni,
-      mail: req.body.mail,
-      telefono: req.body.telefono,
-      contraseña: req.body.contraseña
+    // Create a Niño
+    const niño = new Niño({
+        nombre: req.body.nombre,
+        fechaNac: req.body.fechaNac,
+        grupoSang: req.body.grupoSang,
+        alergias: req.body.alergias,
+        enfCron: req.body.enfCron
     });
   
-    // Save User in the database
-    user
-      .save(user)
+    // Save Niño in the database
+    niño
+      .save(niño)
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while creating the User."
+            err.message || "Some error occurred while creating the Niño."
       });
     });
 };
 
-// Retrieve all Users from the database.
+// Retrieve all Niños from the database.
 exports.findAll = (req, res) => {
-    User.find()
+    Niño.find()
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving Users."
+            err.message || "Some error occurred while retrieving Niños."
         });
       });
 };
 
-// Find a single User with an id
+// Find a single Niño with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
   
-    User.findById(id)
+    Niño.findById(id)
       .then(data => {
         if (!data)
-          res.status(404).send({ message: "Not found User with id " + id });
+          res.status(404).send({ message: "Not found Niño with id " + id });
         else res.send(data);
       })
       .catch(err => {
         res
           .status(500)
-          .send({ message: "Error retrieving User with id=" + id });
+          .send({ message: "Error retrieving Niño with id=" + id });
       });
 };
 
-// Update a User by the id in the request
+// Update a Niño by the id in the request
 exports.update = (req, res) => {
     if (!req.body) {
       return res.status(400).send({
@@ -73,56 +73,56 @@ exports.update = (req, res) => {
   
     const id = req.params.id;
   
-    User.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    Niño.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
       .then(data => {
         if (!data) {
           res.status(404).send({
-            message: `Cannot update User with id=${id}. Maybe User was not found!`
+            message: `Cannot update Niño with id=${id}. Maybe Niño was not found!`
           });
-        } else res.send({ message: "User was updated successfully." });
+        } else res.send({ message: "Niño was updated successfully." });
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error updating User with id=" + id
+          message: "Error updating Niño with id=" + id
         });
       });
 };
 
-// Delete a User with the specified id in the request
+// Delete a Niño with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
   
-    User.findByIdAndRemove(id)
+    Niño.findByIdAndRemove(id)
       .then(data => {
         if (!data) {
           res.status(404).send({
-            message: `Cannot delete User with id=${id}. Maybe User was not found!`
+            message: `Cannot delete Niño with id=${id}. Maybe Niño was not found!`
           });
         } else {
           res.send({
-            message: "User was deleted successfully!"
+            message: "Niño was deleted successfully!"
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Could not delete User with id=" + id
+          message: "Could not delete Niño with id=" + id
         });
       });
 };
 
-// Delete all Users from the database.
+// Delete all Niños from the database.
 exports.deleteAll = (req, res) => {
-    User.deleteMany({})
+    Niño.deleteMany({})
       .then(data => {
         res.send({
-          message: `${data.deletedCount} Users were deleted successfully!`
+          message: `${data.deletedCount} Niños were deleted successfully!`
         });
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while removing all users."
+            err.message || "Some error occurred while removing all niños."
         });
       });
 };
