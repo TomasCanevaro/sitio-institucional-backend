@@ -46,24 +46,24 @@ exports.findAll = (req, res) => {
       });
 };
 
-// Find a single Niño with an id
+// Find a single Niño with a nombre
 exports.findOne = (req, res) => {
-    const id = req.params.id;
+    const nombre = req.params.nombre;
   
-    Niño.findById(id)
+    Niño.findOne({nombre: nombre})
       .then(data => {
         if (!data)
-          res.status(404).send({ message: "Not found Niño with id " + id });
+          res.status(404).send({ message: "Not found Niño with nombre " + nombre });
         else res.send(data);
       })
       .catch(err => {
         res
           .status(500)
-          .send({ message: "Error retrieving Niño with id=" + id });
+          .send({ message: "Error retrieving Niño with nombre=" + nombre });
       });
 };
 
-// Update a Niño by the id in the request
+// Update a Niño by the nombre in the request
 exports.update = (req, res) => {
     if (!req.body) {
       return res.status(400).send({
@@ -71,32 +71,32 @@ exports.update = (req, res) => {
       });
     }
   
-    const id = req.params.id;
+    const nombre = req.params.nombre;
   
-    Niño.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    Niño.findOneAndUpdate({nombre: nombre}, req.body, { useFindAndModify: false })
       .then(data => {
         if (!data) {
           res.status(404).send({
-            message: `Cannot update Niño with id=${id}. Maybe Niño was not found!`
+            message: `Cannot update Niño with nombre=${nombre}. Maybe Niño was not found!`
           });
         } else res.send({ message: "Niño was updated successfully." });
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error updating Niño with id=" + id
+          message: "Error updating Niño with nombre=" + nombre
         });
       });
 };
 
-// Delete a Niño with the specified id in the request
+// Delete a Niño with the specified nombre in the request
 exports.delete = (req, res) => {
-    const id = req.params.id;
+    const nombre = req.params.nombre;
   
-    Niño.findByIdAndRemove(id)
+    Niño.findOneAndRemove({nombre: nombre})
       .then(data => {
         if (!data) {
           res.status(404).send({
-            message: `Cannot delete Niño with id=${id}. Maybe Niño was not found!`
+            message: `Cannot delete Niño with nombre=${nombre}. Maybe Niño was not found!`
           });
         } else {
           res.send({
@@ -106,7 +106,7 @@ exports.delete = (req, res) => {
       })
       .catch(err => {
         res.status(500).send({
-          message: "Could not delete Niño with id=" + id
+          message: "Could not delete Niño with nombre=" + nombre
         });
       });
 };

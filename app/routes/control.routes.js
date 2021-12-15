@@ -9,14 +9,14 @@ module.exports = app => {
     // Retrieve all Controles
     router.get("/", controles.findAll);
   
-    // Retrieve a single Control with id
-    router.get("/:id", controles.findOne);
+    // Retrieve a single Control with niño
+    router.get("/:chico", controles.findOne);
   
-    // Update a Control with id
-    router.put("/:id", controles.update);
+    // Update a Control with niño
+    router.put("/:chico", controles.update);
   
-    // Delete a Control with id
-    router.delete("/:id", controles.delete);
+    // Delete a Control with niño
+    router.delete("/:chico", controles.delete);
   
     // Delete all Controles
     router.delete("/", controles.deleteAll);

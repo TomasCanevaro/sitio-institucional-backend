@@ -44,24 +44,24 @@ exports.findAll = (req, res) => {
       });
 };
 
-// Find a single Vacuna with an id
+// Find a single Vacuna with a vacuna
 exports.findOne = (req, res) => {
-    const id = req.params.id;
+    const vacuna = req.params.vacuna;
   
-    Vacuna.findById(id)
+    Vacuna.findOne({vacuna: vacuna})
       .then(data => {
         if (!data)
-          res.status(404).send({ message: "Not found Vacuna with id " + id });
+          res.status(404).send({ message: "Not found Vacuna with vacuna " + vacuna });
         else res.send(data);
       })
       .catch(err => {
         res
           .status(500)
-          .send({ message: "Error retrieving Vacuna with id=" + id });
+          .send({ message: "Error retrieving Vacuna with vacuna=" + vacuna });
       });
 };
 
-// Update a Vacuna by the id in the request
+// Update a Vacuna by the vacuna in the request
 exports.update = (req, res) => {
     if (!req.body) {
       return res.status(400).send({
@@ -69,32 +69,32 @@ exports.update = (req, res) => {
       });
     }
   
-    const id = req.params.id;
+    const vacuna = req.params.vacuna;
   
-    Vacuna.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    Vacuna.findOneAndUpdate({vacuna: vacuna}, req.body, { useFindAndModify: false })
       .then(data => {
         if (!data) {
           res.status(404).send({
-            message: `Cannot update Vacuna with id=${id}. Maybe Vacuna was not found!`
+            message: `Cannot update Vacuna with vacuna=${vacuna}. Maybe Vacuna was not found!`
           });
         } else res.send({ message: "Vacuna was updated successfully." });
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error updating Vacuna with id=" + id
+          message: "Error updating Vacuna with vacuna=" + vacuna
         });
       });
 };
 
-// Delete a Vacuna with the specified id in the request
+// Delete a Vacuna with the specified vacuna in the request
 exports.delete = (req, res) => {
-    const id = req.params.id;
+    const vacuna = req.params.vacuna;
   
-    Vacuna.findByIdAndRemove(id)
+    Vacuna.findOneAndRemove({vacuna: vacuna})
       .then(data => {
         if (!data) {
           res.status(404).send({
-            message: `Cannot delete Vacuna with id=${id}. Maybe Vacuna was not found!`
+            message: `Cannot delete Vacuna with vacuna=${vacuna}. Maybe Vacuna was not found!`
           });
         } else {
           res.send({
@@ -104,7 +104,7 @@ exports.delete = (req, res) => {
       })
       .catch(err => {
         res.status(500).send({
-          message: "Could not delete Vacuna with id=" + id
+          message: "Could not delete Vacuna with vacuna=" + vacuna
         });
       });
 };

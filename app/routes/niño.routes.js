@@ -9,14 +9,14 @@ module.exports = app => {
     // Retrieve all Niños
     router.get("/", niños.findAll);
   
-    // Retrieve a single Niño with id
-    router.get("/:id", niños.findOne);
+    // Retrieve a single Niño with nombre
+    router.get("/:nombre", niños.findOne);
   
-    // Update a Niño with id
-    router.put("/:id", niños.update);
+    // Update a Niño with nombre
+    router.put("/:nombre", niños.update);
   
-    // Delete a Niño with id
-    router.delete("/:id", niños.delete);
+    // Delete a Niño with nombre
+    router.delete("/:nombre", niños.delete);
   
     // Delete all Niños
     router.delete("/", niños.deleteAll);

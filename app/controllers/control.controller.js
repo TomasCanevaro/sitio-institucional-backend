@@ -50,24 +50,24 @@ exports.findAll = (req, res) => {
       });
 };
 
-// Find a single Control with an id
+// Find a single Control with a niño
 exports.findOne = (req, res) => {
-    const id = req.params.id;
+    const chico = req.params.chico;
   
-    Control.findById(id)
+    Control.findOne({niño: chico})
       .then(data => {
         if (!data)
-          res.status(404).send({ message: "Not found Control with id " + id });
+          res.status(404).send({ message: "Not found Control with niño " + chico });
         else res.send(data);
       })
       .catch(err => {
         res
           .status(500)
-          .send({ message: "Error retrieving Control with id=" + id });
+          .send({ message: "Error retrieving Control with niño=" + chico });
       });
 };
 
-// Update a Control by the id in the request
+// Update a Control by the niño in the request
 exports.update = (req, res) => {
     if (!req.body) {
       return res.status(400).send({
@@ -75,32 +75,32 @@ exports.update = (req, res) => {
       });
     }
   
-    const id = req.params.id;
+    const chico = req.params.chico;
   
-    Control.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    Control.findOneAndUpdate({niño: chico}, req.body, { useFindAndModify: false })
       .then(data => {
         if (!data) {
           res.status(404).send({
-            message: `Cannot update Control with id=${id}. Maybe Control was not found!`
+            message: `Cannot update Control with niño=${chico}. Maybe Control was not found!`
           });
         } else res.send({ message: "Control was updated successfully." });
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error updating Control with id=" + id
+          message: "Error updating Control with niño=" + chico
         });
       });
 };
 
-// Delete a Control with the specified id in the request
+// Delete a Control with the specified niño in the request
 exports.delete = (req, res) => {
-    const id = req.params.id;
+    const chico = req.params.chico;
   
-    Control.findByIdAndRemove(id)
+    Control.findOneAndRemove({niño: chico})
       .then(data => {
         if (!data) {
           res.status(404).send({
-            message: `Cannot delete Control with id=${id}. Maybe Control was not found!`
+            message: `Cannot delete Control with niño=${chico}. Maybe Control was not found!`
           });
         } else {
           res.send({
@@ -110,7 +110,7 @@ exports.delete = (req, res) => {
       })
       .catch(err => {
         res.status(500).send({
-          message: "Could not delete Control with id=" + id
+          message: "Could not delete Control with niño=" + chico
         });
       });
 };

@@ -46,24 +46,24 @@ exports.findAll = (req, res) => {
       });
 };
 
-// Find a single User with an id
+// Find a single User with nombre
 exports.findOne = (req, res) => {
-    const id = req.params.id;
+    const nombre = req.params.nombre;
   
-    User.findById(id)
+    User.findOne({nombre: nombre})
       .then(data => {
         if (!data)
-          res.status(404).send({ message: "Not found User with id " + id });
+          res.status(404).send({ message: "Not found User with nombre " + nombre });
         else res.send(data);
       })
       .catch(err => {
         res
           .status(500)
-          .send({ message: "Error retrieving User with id=" + id });
+          .send({ message: "Error retrieving User with nombre=" + nombre });
       });
 };
 
-// Update a User by the id in the request
+// Update a User by the nombre in the request
 exports.update = (req, res) => {
     if (!req.body) {
       return res.status(400).send({
@@ -71,32 +71,32 @@ exports.update = (req, res) => {
       });
     }
   
-    const id = req.params.id;
+    const nombre = req.params.nombre;
   
-    User.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    User.findOneAndUpdate({nombre: nombre}, req.body, { useFindAndModify: false })
       .then(data => {
         if (!data) {
           res.status(404).send({
-            message: `Cannot update User with id=${id}. Maybe User was not found!`
+            message: `Cannot update User with nombre=${nombre}. Maybe User was not found!`
           });
         } else res.send({ message: "User was updated successfully." });
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error updating User with id=" + id
+          message: "Error updating User with nombre=" + nombre
         });
       });
 };
 
-// Delete a User with the specified id in the request
+// Delete a User with the specified nombre in the request
 exports.delete = (req, res) => {
-    const id = req.params.id;
+    const nombre = req.params.nombre;
   
-    User.findByIdAndRemove(id)
+    User.findOneAndRemove({nombre: nombre})
       .then(data => {
         if (!data) {
           res.status(404).send({
-            message: `Cannot delete User with id=${id}. Maybe User was not found!`
+            message: `Cannot delete User with nombre=${nombre}. Maybe User was not found!`
           });
         } else {
           res.send({
@@ -106,7 +106,7 @@ exports.delete = (req, res) => {
       })
       .catch(err => {
         res.status(500).send({
-          message: "Could not delete User with id=" + id
+          message: "Could not delete User with nombre=" + nombre
         });
       });
 };

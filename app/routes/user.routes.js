@@ -9,14 +9,14 @@ module.exports = app => {
     // Retrieve all Users
     router.get("/", users.findAll);
   
-    // Retrieve a single User with id
-    router.get("/:id", users.findOne);
+    // Retrieve a single User with nombre
+    router.get("/:nombre", users.findOne);
   
-    // Update a User with id
-    router.put("/:id", users.update);
+    // Update a User with nombre
+    router.put("/:nombre", users.update);
   
-    // Delete a User with id
-    router.delete("/:id", users.delete);
+    // Delete a User with nombre
+    router.delete("/:nombre", users.delete);
   
     // Delete all Users
     router.delete("/", users.deleteAll);

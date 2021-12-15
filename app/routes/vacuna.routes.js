@@ -9,14 +9,14 @@ module.exports = app => {
     // Retrieve all Vacunas
     router.get("/", vacunas.findAll);
   
-    // Retrieve a single Vacuna with id
-    router.get("/:id", vacunas.findOne);
+    // Retrieve a single Vacuna with vacuna
+    router.get("/:vacuna", vacunas.findOne);
   
-    // Update a Vacuna with id
-    router.put("/:id", vacunas.update);
+    // Update a Vacuna with vacuna
+    router.put("/:vacuna", vacunas.update);
   
-    // Delete a Vacuna with id
-    router.delete("/:id", vacunas.delete);
+    // Delete a Vacuna with vacuna
+    router.delete("/:vacuna", vacunas.delete);
   
     // Delete all Vacunas
     router.delete("/", vacunas.deleteAll);
